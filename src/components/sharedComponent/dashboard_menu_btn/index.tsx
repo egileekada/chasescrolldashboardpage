@@ -1,5 +1,5 @@
 import CustomText from '@/components/general/Text'
-import { DashboardMenuIcon } from '@/components/svg'
+import { DashboardMenuIcon, LoginTwo } from '@/components/svg'
 import { NewChatIcon, NewWalletIcon, NotificationIcon } from '@/components/svg/sidebarIcons'
 import useCustomTheme from '@/hooks/useTheme'
 import { Box, Button, Flex, Switch, Text, Tooltip, VStack, useColorMode } from '@chakra-ui/react'
@@ -16,7 +16,7 @@ import { LANDINGPAGE_URL } from '@/services/urls'
 
 export default function DashboardMenuBtn({ count }: { count?: any }) {
     const [open, setOpen] = useState(false)
-    const [show, setShow] = useState(false) 
+    const [show, setShow] = useState(false)
 
     const {
         bodyTextColor,
@@ -38,8 +38,8 @@ export default function DashboardMenuBtn({ count }: { count?: any }) {
         setOpen(false)
     }
 
-    const logout = async () => { 
-        window.location.href = `${LANDINGPAGE_URL}/logout`; 
+    const logout = async () => {
+        window.location.href = `${LANDINGPAGE_URL}/logout`;
     }
 
     const clickHandler = () => {
@@ -67,17 +67,7 @@ export default function DashboardMenuBtn({ count }: { count?: any }) {
                                 <SearchNormal1 color={bodyTextColor} size={"20px"} />
                             </Flex>
                             <Text fontSize={"12px"} >Explore</Text>
-                        </Flex> 
-                        {/* <Flex onClick={() => clickHandler()} h={"20px"} gap={"2"} alignItems={"center"} as='button' >
-                            <Flex justifyContent={"center"} w={"20px"} >
-                                <NotificationIcon />
-                            </Flex>
-                            <Text fontSize={"12px"} >Notification</Text>
-
-                            <Flex w={"5"} h={"5"} rounded={"full"} bg={primaryColor} ml={"auto"} color={"white"} justifyContent={"center"} alignItems={"center"} pb={"2px"} fontWeight={"semibold"} fontSize={"12px"}  >
-                                {count}
-                            </Flex>
-                        </Flex> */}
+                        </Flex>
 
                         <Flex w={"full"} h={"20px"} gap={"2"} alignItems={"center"} >
                             <Tooltip label={"darkmode"} fontSize='sm'>
@@ -108,55 +98,61 @@ export default function DashboardMenuBtn({ count }: { count?: any }) {
             )}
 
             <ModalLayout size={"sm"} open={show} close={setShow} >
-                <VStack
+                <Flex
                     width={"100%"}
                     height={"100%"}
                     justifyContent={"center"}
-                    spacing={6}
+                    gap={6}
+                    rounded={"lg"}
+                    flexDirection={"column"}
                     bgColor={mainBackgroundColor}
                     p={"6"}
+                    alignItems={"center"}
                 >
-                    <VStack
-                        width="60px"
-                        height={"60px"}
-                        borderRadius={"30px"}
+                    <Flex
+                        borderRadius={"full"}
                         justifyContent={"center"}
                         bg="#df26263b"
+                        alignItems={"center"}
                     >
-                        <Warning2 color="red" size="30px" variant="Outline" />
-                    </VStack>
-                    <CustomText fontFamily={"DM-Medium"} fontSize={"18px"}>
+                        <LoginTwo />
+                    </Flex>
+                    <Text fontSize={"18px"} fontWeight={"600"} >
                         Are you sure you want to logout?
-                    </CustomText>
-                    <VStack justifyContent={"center"} width={"100%"}>
+                    </Text>
+                    <Flex justifyContent={"center"} flexDirection={"column-reverse"} roundedBottom={"lg"} gap={"3"} width={"100%"}>
                         <Button
                             // outlineColor={"brand.chasescrollButtonBlue"}
-                            borderColor={"brand.chasescrollButtonBlue"}
+                            borderColor={primaryColor}
                             borderWidth={"1px"}
-                            width="100%"
+                            width="full"
+                            fontWeight={"600"}
                             outline={"none"}
                             _hover={{ backgroundColor: "white" }}
                             bg={"white"}
-                            height={"32px"}
-                            color="brand.chasescrollButtonBlue"
-                            onClick={() => setShow(false)}
+                            rounded={"full"}
+                            height={"45px"}
+                            color={primaryColor}
+                            onClick={() => setOpen(false)}
                         >
                             Cancel
                         </Button>
                         <Button
                             borderColor={"red"}
                             borderWidth={"1px"}
+                            rounded={"full"}
                             _hover={{ backgroundColor: "red" }}
                             bg="red"
-                            width="100%"
-                            height={"40px"}
+                            width="full"
+                            fontWeight={"600"}
+                            height={"45px"}
                             color="white"
                             onClick={logout}
                         >
                             Log out
                         </Button>
-                    </VStack>
-                </VStack>
+                    </Flex>
+                </Flex>
             </ModalLayout>
         </Box>
     )
