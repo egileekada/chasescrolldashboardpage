@@ -22,7 +22,7 @@ export default function KioskPage() {
     const { selectedFilter } = useKioskStore((state) => state)
 
     return (
-        <Flex w={"full"} flexDir={"column"} >
+        <Flex w={"full"} flexDir={"column"} py={["6", "8", "8"]} >
             {type === "kiosk" && (
                 <GetProduce name={selectedFilter?.name} state={selectedFilter?.state} category={selectedFilter?.category} />
             )}

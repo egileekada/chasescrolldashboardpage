@@ -149,7 +149,16 @@ function Layout({ children }: {
             frequency: "DAILY",
         } as any)
         updateImage([] as any)
-        push((type === null || type === "mykisok" || type === "myorder") ? "/dashboard/kisok/create" : (type === "rental" || type === "myrental" || type === "myreciept" || type === "vendorreciept") ? "/dashboard/kisok/create-rental" : (type === "service" || type === "myservice" || type === "mybooking") ? "/dashboard/kisok/create-service" : "/dashboard/kisok/create")
+        
+        let typeName = (type === null || type === "mykisok" || type === "myorder") ? "product" : (type === "rental" || type === "myrental" || type === "myreciept" || type === "vendorreciept") ? "rental" : (type === "service" || type === "myservice" || type === "mybooking") ? "services"  : ""
+
+        console.log(type);
+        
+        if(frame) { 
+            (window as any).top.location.href = LANDINGPAGE_URL+"/auth?create="+typeName
+        } else {
+            push((type === null || type === "mykisok" || type === "myorder") ? "/dashboard/kisok/create" : (type === "rental" || type === "myrental" || type === "myreciept" || type === "vendorreciept") ? "/dashboard/kisok/create-rental" : (type === "service" || type === "myservice" || type === "mybooking") ? "/dashboard/kisok/create-service" : "/dashboard/kisok/create")
+        }
     }
 
     const submitHandler = () => {
@@ -175,7 +184,7 @@ function Layout({ children }: {
     }, [type])
 
     const backHandler = () => {
-        window.open(LANDINGPAGE_URL)
+        (window as any).top.location.href = (LANDINGPAGE_URL)
     }
 
     return (
@@ -308,11 +317,11 @@ function Layout({ children }: {
                     </Flex>
                 )}
             </Flex>
-            {!frame && (
+            {/* {!frame && ( */}
                 <Flex w={"full"} justifyContent={"center"} >
                     {pathname !== "/dashboard/product" && (
                         <Flex py={"6"} maxWidth={"745px"} w={"full"} justifyContent={"start"} alignItems={"center"} gap={"4"} >
-                            {(type === "kiosk" || type === "mykiosk" || type === "myorder" || type === "mysales") && (
+                            {((type === "kiosk" || type === "mykiosk" || type === "myorder" || type === "mysales") && !frame) && (
                                 <Select
                                     color={colorMode === "light" ? "#5465E0" : bodyTextColor} backgroundColor={colorMode === "light" ? "#F2F4FF" : secondaryBackgroundColor}
                                     focusBorderColor={"#5465E0"}
@@ -330,7 +339,7 @@ function Layout({ children }: {
                                     ))}
                                 </Select>
                             )}
-                            {(type === "service" || type === "myservice" || type === "mybooking" || type === "myrequest") && (
+                            {((type === "service" || type === "myservice" || type === "mybooking" || type === "myrequest") && !frame) && (
                                 <Select
                                     color={colorMode === "light" ? "#5465E0" : bodyTextColor} backgroundColor={colorMode === "light" ? "#F2F4FF" : secondaryBackgroundColor}
                                     focusBorderColor={"#5465E0"}
@@ -348,7 +357,7 @@ function Layout({ children }: {
                                     ))}
                                 </Select>
                             )}
-                            {(type === "rental" || type === "myrental" || type === "myreciept" || type === "vendorreciept") && (
+                            {((type === "rental" || type === "myrental" || type === "myreciept" || type === "vendorreciept") && !frame)&& (
                                 <Select
                                     color={colorMode === "light" ? "#5465E0" : bodyTextColor} backgroundColor={colorMode === "light" ? "#F2F4FF" : secondaryBackgroundColor}
                                     focusBorderColor={"#5465E0"}
@@ -366,7 +375,7 @@ function Layout({ children }: {
                                     ))}
                                 </Select>
                             )}
-                            {pathname?.includes("fundraising") && (
+                            {/* {(pathname?.includes("fundraising") &&) && (
                                 <Select
                                     color={colorMode === "light" ? "#5465E0" : bodyTextColor} backgroundColor={colorMode === "light" ? "#F2F4FF" : secondaryBackgroundColor}
                                     focusBorderColor={"#5465E0"}
@@ -383,7 +392,7 @@ function Layout({ children }: {
                                         </option>
                                     ))}
                                 </Select>
-                            )}
+                            )} */}
                             {!pathname?.includes("fundraising") && (
                                 <Flex display={["flex", "flex", "flex"]} >
                                     <CustomButton onClick={createProduct} text={
@@ -393,9 +402,9 @@ function Layout({ children }: {
                                     } px={"15px"} height={"40px"} fontSize={"sm"} borderRadius={"32px"} fontWeight={"600"} width={"fit-content"} />
                                 </Flex>
                             )}
-                            {pathname?.includes("fundraising") && (
+                            {/* {(pathname?.includes("fundraising") && !frame) && (
                                 <CustomButton mr={"4"} onClick={() => push("/dashboard/donation/create")} text={"Create Fundraising"} px={"4"} height={"45px"} fontSize={"sm"} borderRadius={"32px"} fontWeight={"600"} width={"fit-content"} />
-                            )}
+                            )} */}
                         </Flex>
                     )}
                     {pathname === "/dashboard/product" && (
@@ -408,7 +417,7 @@ function Layout({ children }: {
                         </Flex>
                     )}
                 </Flex>
-            )}
+            {/* )} */}
             {children}
             <ModalLayout open={open} close={setOpen} rounded='16px' closeIcon={true} >
                 <Flex w={"full"} flexDir={"column"} gap={"3"} p={6} >

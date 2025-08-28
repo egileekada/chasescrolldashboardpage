@@ -29,7 +29,7 @@ function Businesses({ name, state, category }: { name?: string, state?: string, 
 
     return (
         <LoadingAnimation loading={isLoading} refeching={refetchingList} length={newResult?.length} > 
-            <Flex flexDirection={"column"} w='full' h='full' pt='8'>
+            <Flex flexDirection={"column"} w='full' h='full'>
                 {!isLoading && newResult.length > 0 && (
                     <Grid templateColumns={["repeat(2, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)", "repeat(4, 1fr)"]} gap={["4", "4", "6"]} >
                         {newResult.map((item: any, index: number) => (

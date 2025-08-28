@@ -15,7 +15,7 @@ import { URLS } from '@/services/urls';
 import { CustomInput } from '@/components/Form/CustomInput'; 
 import httpServiceGoogle from '@/utils/httpServiceGoogle';
 import CopyRightText from '@/components/sharedComponent/CopyRightText';
-import GoogleBtn from '@/components/sharedComponent/googlebtn';
+// import GoogleBtn from '@/components/sharedComponent/googlebtn';
 import PageLoader from '@/components/sharedComponent/pageLoader';
 import useCustomTheme from "@/hooks/useTheme";
 
@@ -328,7 +328,7 @@ function LoginPage() {
             </Flex>
           </Flex> 
 
-          <GoogleBtn title="Sign in" fixedwidth='294px' />
+          {/* <GoogleBtn title="Sign in" fixedwidth='294px' /> */}
 
           <CustomText fontFamily={'DM-Medium'} color='grey' textAlign={'center'} fontSize={'16px'}>Create a page for events, Community and Business.</CustomText>
 
