@@ -14,14 +14,14 @@ const geistMono = Geist_Mono({
 }); 
 
 const APP_NAME = "Chasescroll";
-const APP_DEFAULT_TITLE = "We build memories";
+const APP_DEFAULT_TITLE = "Chasescroll";
 const APP_TITLE_TEMPLATE = "%s - Chasescroll App";
 const APP_DESCRIPTION = "Creating Unforgetable Memories";
 
 
 export const metadata: Metadata = {
   title: APP_DEFAULT_TITLE,
-  description: 'We build memories',
+  description: 'Discover. Connect. Elevate Your Events as new wording',
   manifest: '/manifest.json',
   applicationName: 'Chasescroll'
 }
