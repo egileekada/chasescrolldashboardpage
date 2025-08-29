@@ -21,7 +21,7 @@ const APP_DESCRIPTION = "Creating Unforgetable Memories";
 
 export const metadata: Metadata = {
   title: APP_DEFAULT_TITLE,
-  description: 'Discover. Connect. Elevate Your Events as new wording',
+  description: 'Discover. Connect. Elevate Your Events',
   manifest: '/manifest.json',
   applicationName: 'Chasescroll'
 }
