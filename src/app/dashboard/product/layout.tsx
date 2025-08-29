@@ -150,7 +150,7 @@ function Layout({ children }: {
         } as any)
         updateImage([] as any)
         
-        let typeName = (type === null || type === "mykisok" || type === "myorder") ? "product" : (type === "rental" || type === "myrental" || type === "myreciept" || type === "vendorreciept") ? "rental" : (type === "service" || type === "myservice" || type === "mybooking") ? "services"  : ""
+        let typeName = (type === "kiosk" || type === "mykisok" || type === "myorder") ? "product" : (type === "rental" || type === "myrental" || type === "myreciept" || type === "vendorreciept") ? "rental" : (type === "service" || type === "myservice" || type === "mybooking") ? "services"  : ""
 
         console.log(type);
         
