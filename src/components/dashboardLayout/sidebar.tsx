@@ -1,17 +1,15 @@
 "use client"
 import useCustomTheme from "@/hooks/useTheme";
-import { Flex, Box, Image, Switch, Spinner, Button, useColorMode, VStack, Text } from "@chakra-ui/react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ReactNode, useState } from "react";
-import { Warning2 } from 'iconsax-react';
+import { Flex, Box, Image, Switch, Spinner, Button, useColorMode, Text } from "@chakra-ui/react";
+import { usePathname, useRouter } from "next/navigation";
+import { ReactNode, useState } from "react"; 
 import useGetUser from "@/hooks/useGetUser";
 import UserImage from "../sharedComponent/userimage";
 import ModalLayout from "../sharedComponent/modal_layout"; 
 import useModalStore from "@/global-state/useModalSwitch";
 import NotificationBar from "../notification";
 import { KisokIcon, NotificationIcon, SidebarEventIcon, SidebarHomeIcon, SidebarLogoutIcon, SidebarMessageIcon, SidebarSearchIcon, SidebarWalletIcon } from "../svg/sidebarIcons";
-import { EVENTPAGE_URL, LANDINGPAGE_URL } from "@/services/urls";
-import useNotificationHook from "@/hooks/useNotificationHook";
+import { EVENTPAGE_URL, LANDINGPAGE_URL } from "@/services/urls"; 
 import { Login, LoginTwo } from "../svg";
 
 export default function SideBar({count} : {count: string}) {

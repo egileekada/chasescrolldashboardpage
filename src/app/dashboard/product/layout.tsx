@@ -27,9 +27,9 @@ function Layout({ children }: {
     const { primaryColor, borderColor, bodyTextColor, secondaryBackgroundColor, headerTextColor, mainBackgroundColor } = useCustomTheme()
 
     const { configPaystack, setPaystackConfig, dataID, message, amount, setAmount } = usePaystackStore((state) => state);
+    const newtheme = localStorage.getItem("chakra-ui-color-mode") as string
     const { colorMode } = useColorMode();
     const query = useSearchParams();
-    const newtheme = localStorage.getItem("chakra-ui-color-mode") as string
     const type = query?.get('type');
     const frame = query?.get('frame');
 
@@ -151,8 +151,7 @@ function Layout({ children }: {
         updateImage([] as any)
         
         let typeName = (type === "kiosk" || type === "mykisok" || type === "myorder") ? "product" : (type === "rental" || type === "myrental" || type === "myreciept" || type === "vendorreciept") ? "rental" : (type === "service" || type === "myservice" || type === "mybooking") ? "services"  : ""
-
-        console.log(type);
+ 
         
         if(frame) { 
             (window as any).top.location.href = LANDINGPAGE_URL+"/auth?create="+typeName

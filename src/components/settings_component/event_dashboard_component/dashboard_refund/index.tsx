@@ -54,10 +54,10 @@ import { IoIosArrowDropright, IoMdArrowDropright, IoMdCloseCircle } from 'react-
 import useCustomTheme from "@/hooks/useTheme";
 import { textLimit } from '@/utils/textlimit'
 import InterestedUsers from '@/components/sharedComponent/interested_users'
-import { IMAGE_URL, URLS } from '@/services/urls'
+import { EVENTPAGE_URL, IMAGE_URL, URLS } from '@/services/urls'
 import { ArrowRight, BoxArrowIcon, LocationIcon, TicketBtnIcon } from '@/components/svg'
 import { eventNames } from 'process'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import ModalLayout from '@/components/sharedComponent/modal_layout'
 import { PaginatedResponse } from '@/models/PaginatedResponse'
 import { IEventType } from '@/models/Event'
@@ -248,10 +248,7 @@ function DashboardRefund(props: Props) {
                     date: parseDate(fields.slice(5).join(','))
                 };
             });
-
-            console.log(datacsv);
-
-
+ 
             setNewData(datacsv)
 
 
@@ -305,8 +302,10 @@ function DashboardRefund(props: Props) {
         (filteredData);
 
     }, [showDate, showNumberOfTicket, showEmail, showStatus, showStatus, showTicketType, showUserName])
-
-    console.log(data?.data?.content);
+    const newtheme = localStorage.getItem("chakra-ui-color-mode") as string
+    
+    const query = useSearchParams(); 
+    const frame = query?.get('frame');
 
 
     const { isLoading: loadingData, isRefetching: refechingDa } = useQuery(['all-events-details', index], () => httpService.get(URLS.All_EVENT + "?id=" + index), {
@@ -350,19 +349,14 @@ function DashboardRefund(props: Props) {
     const downloadCSV = () => {
         // refetch()
     }
+ 
+    const clickHandler = () => { 
+        window.location.href = `${EVENTPAGE_URL}/product/details/events/${dataInfo?.id}${frame ? `?frame=true&theme=${newtheme}` : (newtheme && newtheme !== "null") ? `?theme=${newtheme}` : ""}`;
+    }
 
     return (
         <Flex ref={contentRef} width={"full"} flexDirection={"column"} >
-            <LoadingAnimation loading={loadingData} >
-                {/* {!getEvent.isLoading && !event?.eventFunnelGroupID && (
-                    <Flex width='full' height='70px' marginBottom={'20px'} justifyContent={'center'} direction='column' alignItems={'center'}>
-                        <CustomText>Would you like to convert your attendees to a community?</CustomText>
-                        <Flex gap={3} marginTop={'10px'} direction={['column', 'row']}>
-                            <Button onClick={() => setShowCommunityCreationModal(true)} mt='5px' >Convert to a new community</Button>
-                            <Button onClick={() => setShowCommunityModal(true)} mt='5px' >Convert to an existing community</Button>
-                        </Flex>
-                    </Flex>
-                )} */}
+            <LoadingAnimation loading={loadingData} > 
                 <Flex pos={"relative"} maxW={["500px", "full", "full", "full"]} width={"full"} rounded={"8px"} borderWidth={"1px"} borderColor={borderColor} p={["2", "2", "4", "6"]} alignItems={["start", "start", "center", "center"]} flexDir={["column", "column", "row"]} gap={["2", "2", "6", "6"]} >
                     <Flex width={["full", "full", "auto", "auto"]} mr={["auto", "auto", "0px"]} gap={"3"} flexDirection={["column", "column", "row", "row"]} pos={"relative"} p={"2"} rounded={"4px"} >
                         <Flex alignItems={"center"} w={"full"} gap={"4"} flexDirection={["column", "column", "column", "row"]} >
@@ -408,11 +402,11 @@ function DashboardRefund(props: Props) {
                         </Flex>
                         <Box w={["50px"]} display={["none", "none", "block"]} pos={"relative"} >
                             <Box w={["fit-content"]} position={"relative"} top={"0px"} >
-                                <CustomButton text={"View Event"} backgroundColor={"#EFF1FE"} transform={["rotate(-90deg)"]} left={["-45px"]} top={["50px"]} position={["relative", "relative", "absolute"]} color={"#5D70F9"} height={"45px"} fontSize={"xs"} width={"140px"} roundedBottom={"4px"} />
+                                <CustomButton text={"View Event"} onClick={clickHandler} backgroundColor={"#EFF1FE"} transform={["rotate(-90deg)"]} left={["-45px"]} top={["50px"]} position={["relative", "relative", "absolute"]} color={"#5D70F9"} height={"45px"} fontSize={"xs"} width={"140px"} roundedBottom={"4px"} />
                             </Box>
                         </Box>
                         <Box w={["full"]} display={["block", "block", "none"]} position={"relative"} top={"0px"} >
-                            <CustomButton text={"View Event"} backgroundColor={"#EFF1FE"} color={"#5D70F9"} height={"45px"} fontSize={"xs"} width={"full"} roundedBottom={"4px"} />
+                            <CustomButton text={"View Event"} onClick={clickHandler} backgroundColor={"#EFF1FE"} color={"#5D70F9"} height={"45px"} fontSize={"xs"} width={"full"} roundedBottom={"4px"} />
                         </Box>
                     </Flex>
                     <Flex w={["full", "full", "auto", "auto"]} flexDir={["column", "column", "column", "column", "row"]} alignItems={"center"} ml={["0px", "0px", "auto", "auto"]} gap={"4"} >
