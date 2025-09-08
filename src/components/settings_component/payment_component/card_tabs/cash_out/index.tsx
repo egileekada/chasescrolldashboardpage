@@ -40,7 +40,7 @@ function CashOut(props: Props) {
       setAmount(inputValue); // Store raw number without commas
       setDisplayValue(formatNumberData(inputValue)); // Format and update display value
     }
-  };
+  }; 
 
   return (
     <Flex
@@ -53,7 +53,7 @@ function CashOut(props: Props) {
         <Flex w={"full"} gap={"4"} alignItems={"center"} flexDir={"column"}>
           <Text fontWeight={"semibold"}>Enter Amount</Text>
           <Input
-            value={displayValue}
+            value={amount}
             onChange={handleChange}
             width={"full"}
             // type="number"
@@ -118,6 +118,7 @@ function CashOut(props: Props) {
           backgroundColor={"#5465E0"}
           borderRadius={"32px"}
           height={"54px"}
+          disable={(!amount || Number(amount) <= 100) ? true : false}
           onClick={() => setShow(true)}
           text="Cash out"
           marginTop={"8"}

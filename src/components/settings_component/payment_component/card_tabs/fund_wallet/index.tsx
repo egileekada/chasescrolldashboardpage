@@ -108,7 +108,7 @@ function FundWallet(props: Props) {
     return (
         <Flex width={"full"} pt={"8"} gap={"4"} flexDirection={"column"} alignItems={"center"} >
             <Text fontWeight={"semibold"} >Enter Amount</Text>
-            <Input value={displayValue} onChange={handleChange} width={"full"} textAlign={"center"} borderColor={"transparent"} focusBorderColor="transparent" placeholder={currency === "USD" ? '$0.00' : "₦0.00"} _placeholder={{ color: bodyTextColor }} fontSize={"20px"} _hover={{ color: bodyTextColor }} />
+            <Input value={amount} onChange={handleChange} width={"full"} textAlign={"center"} borderColor={"transparent"} focusBorderColor="transparent" placeholder={currency === "USD" ? '$0.00' : "₦0.00"} _placeholder={{ color: bodyTextColor }} fontSize={"20px"} _hover={{ color: bodyTextColor }} />
             <CustomButton isLoading={createTicket.isLoading} disable={createTicket.isLoading} onClick={() => clickHandler()} text='Fund' marginTop={"4"}
                 backgroundColor={"#5465E0"}
                 borderRadius={"32px"}

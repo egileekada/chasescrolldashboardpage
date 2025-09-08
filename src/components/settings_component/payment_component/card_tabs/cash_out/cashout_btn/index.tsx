@@ -13,14 +13,14 @@ import SuccessMessage from '../modals/success_message'
 interface Props {
     currency: string,
     amount: any, 
-    setShow: any
+    setShow: any, 
 }
 
 function CashoutBtn(props: Props) {
     const {
         currency,
         amount,
-        setShow
+        setShow,  
     } = props
 
     const [open, setOpen] = React.useState(false)
