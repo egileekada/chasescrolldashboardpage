@@ -67,7 +67,7 @@ export default function SizeSelector() {
 
         let clone = []
 
-        if(productdata.size.length > 0 ) {
+        if(productdata?.size?.length > 0 ) {
             clone = [...productdata.size, ...hexValues]
         } else {
             clone = [...hexValues]

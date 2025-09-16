@@ -72,11 +72,14 @@ export default function ColorSelector() {
 
         let clone = []
 
-        if(productdata.color.length > 0 ) {
+        if(productdata?.color?.length > 0 ) {
             clone = [...productdata.color, ...transformedData]
         } else {
             clone = [...transformedData]
         } 
+
+        console.log(clone);
+        
 
         updateProduct({ ...productdata, color: clone })
     };
