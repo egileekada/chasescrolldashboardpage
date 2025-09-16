@@ -226,7 +226,7 @@ export default function ShippingAddress(props: Props) {
                 <FaCheckCircle size={"15px"} color='#34C759' />
                 <Text fontSize={"14px"} fontWeight={"600"} >Customer Address </Text>
             </Flex>
-            <Flex w={"full"} gap={"6"} >
+            <Flex w={"full"} gap={"6"} flexDir={["column", "column", "row"]} >
                 <Flex flexDir={"column"} w={"full"} gap={"6"} >
                     <LoadingAnimation loading={isLoading} >
                         {address?.map((item, index) => {
@@ -270,8 +270,8 @@ export default function ShippingAddress(props: Props) {
                         </Flex>
                     </Flex>
                 </Flex>
-                <Flex w={"fit-content"} h={"fit-content"} >
-                    <Flex w={"292px"} rounded={"8px"} flexDir={"column"} gap={"4"} p={"6"} bgColor={mainBackgroundColor} >
+                <Flex w={["full", "full", "fit-content"]} h={"fit-content"} >
+                    <Flex w={["full", "full", "292px"]} rounded={"8px"} flexDir={"column"} gap={"4"} p={"6"} bgColor={mainBackgroundColor} >
                         <Text fontWeight={"700"} >Order Summary</Text>
                         <Flex w={"full"} justifyContent={"space-between"} >
                             <Text fontSize={"14px"} fontWeight={"500"} >Item total</Text>
