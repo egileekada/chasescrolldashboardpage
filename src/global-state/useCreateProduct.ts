@@ -11,8 +11,8 @@ export type CreateProduct = {
     hasDiscount: boolean,
     discountPrice: number | any,
     publish: boolean;
-    color?: Array<any>,
-    size?: Array<string>,
+    color: Array<any>,
+    size: Array<string>,
     location?: {
         link?: string,
         address?: string,
@@ -98,6 +98,8 @@ const useProductStore = create<State & Image & Navigate & Action & ILocation & I
         hasDiscount: false,
         discountPrice: null,
         publish: true,
+        color: [],
+        size: [],
         location: "" as any,
         state: ""
     },

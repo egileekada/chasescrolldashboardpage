@@ -83,7 +83,7 @@ export default function KisokCreate() {
                         <ProductMap height='45px' location={productdata?.location} />
                     </Flex>
                     <SelectCategories rental={false} />
-                    <Flex w={"full"} gap={"3"}  >
+                    <Flex w={"full"} flexDir={["column", "column", "row"]} gap={["4", "4", "3"]}  >
                         <ColorSelector />
                         <SizeSelector />
                     </Flex>

@@ -5,6 +5,7 @@ import useCustomTheme from "@/hooks/useTheme";
 import { Flex, Input, Text, useToast } from "@chakra-ui/react";
 import { clone } from "lodash";
 import { useEffect, useState } from "react";
+import { IoIosClose } from "react-icons/io";
 import Select from 'react-select';
 
 
@@ -64,29 +65,30 @@ export default function SizeSelector() {
 
         const hexValues = selected.map((color: any) => color.value);
 
-        setSelectedOptions(selected);
+        let clone = []
 
-        console.log(hexValues);
-        
+        if(productdata.size.length > 0 ) {
+            clone = [...productdata.size, ...hexValues]
+        } else {
+            clone = [...hexValues]
+        } 
 
-        updateProduct({...productdata, size: [...hexValues]})
+        updateProduct({...productdata, size: clone})
     };
-
-    console.log(productdata);
-
+ 
     const clickHandler = () => {
 
         if(!customColor?.label || !customColor?.value){
             toast({
                 status: "warning",
-                description: "Enter Your Custom Color Name and Code"
+                description: "Enter Your Custom Size and Name"
             })
             return
         } else {
             if(selectedOptions?.some((item) => item?.label === customColor?.label || item?.value === customColor?.value)){
                 toast({
                     status: "warning",
-                    description: "Color Name or Code Already exist"
+                    description: "Size Name or Code Already exist"
                 })
                 return
             }
@@ -101,6 +103,11 @@ export default function SizeSelector() {
             setOpen(false)
         }
     }
+    /** remove color */
+    const removeColor = (label: string) => {
+        const filtered = productdata?.size?.filter((item) => item !== label); 
+        updateProduct({ ...productdata, size: filtered });
+    };
 
     return (
         <Flex gap={"2"} w={"full"} color={"black"} flexDir={"column"} >
@@ -108,13 +115,29 @@ export default function SizeSelector() {
             <Select
                 isMulti
                 name="tags"
-                options={SizeOptions}
+                // options={SizeOptions}
+
+                options={SizeOptions.filter(
+                    (item) => !productdata?.size?.some((subitem) => subitem === item.value)
+                )}
                 styles={customStyles}
                 className="basic-multi-select "
                 classNamePrefix="select"
                 onChange={handleChange}
-                value={selectedOptions}
+                value={[] as any}
             />
+            <Flex w={"fit"} wrap={"wrap"} gap={"1"} >
+                {productdata?.size?.map((item) => {
+                    return (
+                        <Flex key={item} py={"2"} alignItems={"center"} borderWidth={"1px"} px={"2"} rounded={"12px"} gap={"1"} > 
+                            <Text fontSize={"14px"} color={headerTextColor} >{item}</Text>
+                            <Flex as={"button"} onClick={() => removeColor(item)} >
+                                <IoIosClose size={"20px"} />
+                            </Flex>
+                        </Flex>
+                    )
+                })}
+            </Flex>
             <Text w={"fit-content"} fontSize={"14px"} type="button" as={"button"} onClick={()=> setOpen(true)} color={primaryColor} >Add Custom Size</Text>
             <ModalLayout open={open} close={setOpen} size={"xs"} >
                 <Flex w={"full"} flexDir={"column"} gap={"3"} p={"4"} >

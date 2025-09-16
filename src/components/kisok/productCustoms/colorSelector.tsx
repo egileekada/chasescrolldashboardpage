@@ -3,7 +3,9 @@ import ModalLayout from "@/components/sharedComponent/modal_layout";
 import useProductStore from "@/global-state/useCreateProduct";
 import useCustomTheme from "@/hooks/useTheme";
 import { Flex, Input, Text, useToast } from "@chakra-ui/react";
+import { values } from "lodash";
 import { useEffect, useState } from "react";
+import { IoIosClose } from "react-icons/io";
 import Select from 'react-select';
 
 
@@ -61,16 +63,22 @@ export default function ColorSelector() {
 
     const handleChange = (selected: any) => {
 
-
-        setSelectedOptions(selected);
-
         const transformedData = selected.map((item: any) => ({
             color: item.value,
             label: item.label
         }));
 
+        console.log(transformedData);
 
-        updateProduct({ ...productdata, color: transformedData })
+        let clone = []
+
+        if(productdata.color.length > 0 ) {
+            clone = [...productdata.color, ...transformedData]
+        } else {
+            clone = [...transformedData]
+        } 
+
+        updateProduct({ ...productdata, color: clone })
     };
 
     const clickHandler = () => {
@@ -101,31 +109,43 @@ export default function ColorSelector() {
         }
     }
 
+    /** remove color */
+    const removeColor = (label: string) => {
+        const filtered = productdata?.color?.filter((item) => item.label !== label); 
+        updateProduct({ ...productdata, color: filtered });
+    };
+
+
     return (
         <Flex gap={"2"} w={"full"} color={"black"} flexDir={"column"} >
             <Text fontWeight={"500"} color={headerTextColor} >Color</Text>
             <Select
                 isMulti
                 name="tags"
-                options={colorOptions}
+                options={colorOptions.filter(
+                    (item) => !productdata?.color?.some((subitem) => subitem.color === item.value)
+                )}
                 className="basic-multi-select"
                 classNamePrefix="select"
                 onChange={handleChange}
                 styles={customStyles}
-                value={selectedOptions}
+                value={[] as any}
             />
-            {selectedOptions?.length > 0 && (
-                <Flex w={"fit"} wrap={"wrap"} gap={"1"} >
-                    {selectedOptions?.map((item) => {
-                        return (
-                            <Flex key={item?.label} py={"2"} alignItems={"center"} rounded={"12px"} gap={"1"} >
-                                <Flex w={"7"} h={"7"} rounded={"full"} bgColor={item?.value} />
-                                <Text fontSize={"14px"} color={headerTextColor} >{item?.label}</Text>
+            {/* {productdata?.color?.length > 0 && ( */}
+            <Flex w={"fit"} wrap={"wrap"} gap={"1"} >
+                {productdata?.color?.map((item) => {
+                    return (
+                        <Flex key={item?.label} py={"2"} alignItems={"center"} borderWidth={"1px"} px={"2"} rounded={"12px"} gap={"1"} >
+                            <Flex w={"7"} h={"7"} rounded={"full"} bgColor={item?.color} />
+                            <Text fontSize={"14px"} color={headerTextColor} >{item?.label}</Text>
+                            <Flex as={"button"} onClick={() => removeColor(item?.label)} >
+                                <IoIosClose size={"20px"} />
                             </Flex>
-                        )
-                    })}
-                </Flex>
-            )}
+                        </Flex>
+                    )
+                })}
+            </Flex>
+            {/* )} */}
             <Text type="button" fontSize={"14px"} as={"button"} w={"fit-content"} onClick={() => setOpen(true)} color={primaryColor} >Add Custom Color</Text>
             <ModalLayout open={open} close={setOpen} size={"xs"} >
                 <Flex w={"full"} flexDir={"column"} gap={"3"} p={"4"} >
