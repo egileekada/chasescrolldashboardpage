@@ -30,7 +30,7 @@ interface IAction {
 
 export default function GetReciept() {
 
-    const { primaryColor, mainBackgroundColor } = useCustomTheme()
+    const { primaryColor, mainBackgroundColor, borderColor } = useCustomTheme()
     const { push } = useRouter()
     const userId = localStorage.getItem('user_id') + ""; 
     const [percentage, setPercentage] = useState(0)
@@ -91,7 +91,7 @@ export default function GetReciept() {
                 {results?.map((item: IReceipt, index: number) => {
                     if (results?.length === index + 1) {
                         return (
-                            <Flex as={"button"} ref={ref} flexDir={"column"} onClick={() => clickHander(item)} borderWidth={"1px"} rounded={"10px"} bgColor={mainBackgroundColor} key={index} w={"full"} >
+                            <Flex as={"button"} ref={ref} borderColor={borderColor} flexDir={"column"} onClick={() => clickHander(item)} borderWidth={"1px"} rounded={"10px"} bgColor={mainBackgroundColor} key={index} w={"full"} >
                                 <ProductImageScroller images={item?.rental?.images} createdDate={moment(item?.createdDate)?.fromNow()} userData={item?.vendor} />
                                 <Flex flexDir={"column"} px={["2", "2", "3"]} pt={["2", "2", "3"]} gap={"1"} pb={["2", "2", "0px"]} >
                                     <Text fontSize={["14px", "14px", "17px"]} fontWeight={"600"} textAlign={"left"} display={["none", "none", "block"]} >{textLimit(capitalizeFLetter(item?.rental?.name), 20)}</Text>
@@ -107,7 +107,7 @@ export default function GetReciept() {
                         )
                     } else {
                         return (
-                            <Flex as={"button"} flexDir={"column"} onClick={() => clickHander(item)} borderWidth={"1px"} rounded={"10px"} bgColor={mainBackgroundColor} key={index} w={"full"} >
+                            <Flex as={"button"} flexDir={"column"} borderColor={borderColor} onClick={() => clickHander(item)} borderWidth={"1px"} rounded={"10px"} bgColor={mainBackgroundColor} key={index} w={"full"} >
                                 <ProductImageScroller images={item?.rental?.images} createdDate={moment(item?.createdDate)?.fromNow()} userData={item?.vendor} />
                                 <Flex flexDir={"column"} px={["2", "2", "3"]} pt={["2", "2", "3"]} gap={"1"} pb={["2", "2", "0px"]} >
                                     <Text fontSize={["14px", "14px", "17px"]} fontWeight={"600"} textAlign={"left"} display={["none", "none", "block"]} >{textLimit(capitalizeFLetter(item?.rental?.name), 20)}</Text>

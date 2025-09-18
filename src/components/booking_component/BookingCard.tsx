@@ -356,7 +356,7 @@ function BookingCard({ business, booking, isVendor = false, shouldNavigate = tru
     }, [open])
 
     return (
-        <Flex as={"button"} flexDir={"column"} onClick={() => setOpen(true)} borderWidth={"1px"} bgColor={mainBackgroundColor} rounded={"10px"} w={"full"} >
+        <Flex as={"button"} flexDir={"column"} borderColor={borderColor} onClick={() => setOpen(true)} borderWidth={"1px"} bgColor={mainBackgroundColor} rounded={"10px"} w={"full"} >
             <ProductImageScroller images={bookingState?.service?.images} createdDate={moment(bookingState?.createdDate)?.fromNow()} userData={bookingState?.createdBy?.userId === userId ? bookingState?.businessOwner : bookingState?.createdBy} />
             <Flex flexDir={"column"} px={["2", "2", "3"]} pt={["2", "2", "3"]} gap={"1"} pb={["2", "2", "0px"]}  >
                 <Text fontSize={["14px", "14px", "17px"]} fontWeight={"600"} textAlign={"left"} display={["none", "none", "block"]} >{textLimit(capitalizeFLetter(bookingState?.service?.name), 20)}</Text>

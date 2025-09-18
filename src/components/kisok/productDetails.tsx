@@ -149,7 +149,7 @@ export default function ProductDetails({ id }: { id: string }) {
                                     <Flex gap={"2"} flexWrap={"wrap"} >
                                         {item?.size?.map((item) => {
                                             return (
-                                                <Flex key={item} w={"fit-content"} px={"3"} borderWidth={"1px"} cursor={"pointer"} onClick={() => setSize((prev) => prev === item ? "" : item)} h={"10"} justifyContent={"center"} alignItems={"center"} rounded={"lg"} bgColor={size === item ? secondaryBackgroundColor : mainBackgroundColor} >
+                                                <Flex key={item} w={"fit-content"} px={"3"} borderWidth={"1px"} cursor={"pointer"} onClick={() => setSize((prev) => prev === item ? "" : item)} h={"10"} justifyContent={"center"} alignItems={"center"} rounded={"lg"} bgColor={size === item ? "#F2F4FF" : mainBackgroundColor} >
                                                     {item}
                                                 </Flex>
                                             )
@@ -163,7 +163,7 @@ export default function ProductDetails({ id }: { id: string }) {
                                     <Flex gap={"2"} flexWrap={"wrap"} >
                                         {item?.color?.map((item) => {
                                             return (
-                                                <Flex key={item?.label} w={"fit-content"} gap={"1"} px={"3"} borderWidth={"1px"} cursor={"pointer"} onClick={() => setColor((prev) => prev === item?.label ? "" : item?.label)} h={"10"} justifyContent={"center"} alignItems={"center"} rounded={"lg"} bgColor={color === item?.label ? secondaryBackgroundColor : mainBackgroundColor} >
+                                                <Flex key={item?.label} w={"fit-content"} gap={"1"} px={"3"} borderWidth={"1px"} cursor={"pointer"} onClick={() => setColor((prev) => prev === item?.label ? "" : item?.label)} h={"10"} justifyContent={"center"} alignItems={"center"} rounded={"lg"} bgColor={color === item?.label ? "#F2F4FF" : mainBackgroundColor} >
                                                     <Flex w={"7"} h={"7"} rounded={"full"} borderWidth={"1px"} bgColor={item?.color} />{item?.label}
                                                 </Flex>
                                             )

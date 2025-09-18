@@ -86,7 +86,7 @@ export default function GetRental({ myrental, name, state, category, isSelect, s
                 {(myrental ? results : newResult)?.map((item: IRental, index: number) => {
                     if ((myrental ? results : newResult)?.length === index + 1) {
                         return (
-                            <Flex ref={ref} as={"button"} flexDir={"column"} onClick={() => clickHandler(item)} borderWidth={"1px"} rounded={"10px"} bgColor={mainBackgroundColor} key={index} w={"full"} pos={"relative"} >
+                            <Flex ref={ref} as={"button"} flexDir={"column"} borderColor={borderColor} onClick={() => clickHandler(item)} borderWidth={"1px"} rounded={"10px"} bgColor={mainBackgroundColor} key={index} w={"full"} pos={"relative"} >
                                 {(!isSelect && (item?.creator?.userId === userId)) && (
                                     <DeleteEvent id={item?.id} isRental={true} name={item?.name + " Rental"} isOrganizer={myrental ? true : false} />
                                 )}
@@ -146,7 +146,7 @@ export default function GetRental({ myrental, name, state, category, isSelect, s
                         )
                     } else {
                         return (
-                            <Flex as={"button"} flexDir={"column"} onClick={() => clickHandler(item)} borderWidth={"1px"} rounded={"10px"} bgColor={mainBackgroundColor} key={index} w={"full"} pos={"relative"} >
+                            <Flex as={"button"} flexDir={"column"} borderColor={borderColor} onClick={() => clickHandler(item)} borderWidth={"1px"} rounded={"10px"} bgColor={mainBackgroundColor} key={index} w={"full"} pos={"relative"} >
                                 {(!isSelect && (item?.creator?.userId === userId)) && (
                                     <DeleteEvent id={item?.id} isRental={true} name={item?.name + " Rental"} isOrganizer={myrental ? true : false} />
                                 )}
