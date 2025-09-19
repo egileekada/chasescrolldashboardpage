@@ -248,7 +248,7 @@ function DashboardRefund(props: Props) {
                     date: parseDate(fields.slice(5).join(','))
                 };
             });
- 
+
             setNewData(datacsv)
 
         }
@@ -302,8 +302,8 @@ function DashboardRefund(props: Props) {
 
     }, [showDate, showNumberOfTicket, showEmail, showStatus, showStatus, showTicketType, showUserName])
     const newtheme = localStorage.getItem("chakra-ui-color-mode") as string
-    
-    const query = useSearchParams(); 
+
+    const query = useSearchParams();
     const frame = query?.get('frame');
 
 
@@ -327,13 +327,15 @@ function DashboardRefund(props: Props) {
 
 
     const contentRef = useRef<HTMLDivElement>(null);
-    const reactToPrintFn = useReactToPrint({ contentRef, 
+    const reactToPrintFn = useReactToPrint({
+        contentRef,
         documentTitle: capitalizeFLetter(eventData?.eventName),
         pageStyle: `
           @page {
             size: Legal landscape
           }   
-        `, });
+        `,
+    });
 
     // const handlePrint = useReactToPrint({
     //     content: () => componentRef.current,
@@ -348,14 +350,14 @@ function DashboardRefund(props: Props) {
     const downloadCSV = () => {
         // refetch()
     }
- 
-    const clickHandler = () => { 
+
+    const clickHandler = () => {
         window.location.href = `${EVENTPAGE_URL}/product/details/events/${dataInfo?.id}${frame ? `?frame=true&theme=${newtheme}` : (newtheme && newtheme !== "null") ? `?theme=${newtheme}` : ""}`;
     }
 
     return (
         <Flex ref={contentRef} width={"full"} flexDirection={"column"} >
-            <LoadingAnimation loading={loadingData} > 
+            <LoadingAnimation loading={loadingData} >
                 <Flex pos={"relative"} maxW={["500px", "full", "full", "full"]} width={"full"} rounded={"8px"} borderWidth={"1px"} borderColor={borderColor} p={["2", "2", "4", "6"]} alignItems={["start", "start", "center", "center"]} flexDir={["column", "column", "row"]} gap={["2", "2", "6", "6"]} >
                     <Flex width={["full", "full", "auto", "auto"]} mr={["auto", "auto", "0px"]} gap={"3"} flexDirection={["column", "column", "row", "row"]} pos={"relative"} p={"2"} rounded={"4px"} >
                         <Flex alignItems={"center"} w={"full"} gap={"4"} flexDirection={["column", "column", "column", "row"]} >
@@ -520,7 +522,7 @@ function DashboardRefund(props: Props) {
                                     if (selectedTicketType === 'All') {
                                         return item;
                                     } else {
-                                        return item?.ticketType === selectedTicketType || !item?.ticketType ? item : null;
+                                        return item?.ticketTypeCount.some((subitem: any) => subitem?.ticketType ===  selectedTicketType)
                                     }
                                 }).map((person: any, i: number) => {
                                     return (
@@ -529,37 +531,54 @@ function DashboardRefund(props: Props) {
                                             <Td borderRightWidth={"1px"} borderBottomWidth={"1px"} >{showUserName ? capitalizeFLetter(person?.user?.firstName) + " " + capitalizeFLetter(person?.user?.lastName) : ""}</Td>
                                             <Td borderRightWidth={"1px"} borderBottomWidth={"1px"} fontSize={"14px"}>{showEmail ? person?.user?.email : ""}</Td>
                                             <Td borderRightWidth={"1px"} borderBottomWidth={"1px"} fontSize={"14px"}>{showDate ? dateFormat(person?.createdDate) : ""}</Td>
-                                            {(person?.ticketType && person?.role !== "ADMIN" && person?.role !== "COLLABORATOR") && (
-                                                <Td borderRightWidth={"1px"} borderBottomWidth={"1px"} fontSize={"14px"}>
-                                                    {showTicketType && (
-                                                        <Flex height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} >
-                                                            {person?.ticketType?.slice(0, 1)?.toUpperCase() + person?.ticketType?.slice(1, person?.ticketType?.length)}
-                                                        </Flex>
-                                                    )}
-                                                </Td>
-                                            )}
-                                            {(!person?.ticketType || person?.role === "ADMIN" || person?.role === "COLLABORATOR") && (
-                                                <Td borderRightWidth={"1px"} borderBottomWidth={"1px"} >
-                                                    {(person?.user?.userId === person?.event?.createdBy && showTicketType) && (
-                                                        <Flex height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} bg={"#DCF9CF66"} color={"brand.chasescrollBlue"} >
-                                                            Organizer
-                                                        </Flex>
-                                                    )}
-                                                    {(person?.role === "ADMIN" && person?.user?.userId !== person?.event?.createdBy && showTicketType) && (
-                                                        <Flex height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} bg={"#DCF9CF66"} color={"#3EC30F"} >
-                                                            Admin
-                                                        </Flex>
-                                                    )}
-                                                    {(person?.role === "COLLABORATOR" && showTicketType) && (
-                                                        <Flex height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} bg={"#FDF3CF6B"} color={"#FDB806"} >
-                                                            Volunteer
-                                                        </Flex>
-                                                    )}
+                                            <Td borderRightWidth={"1px"} borderBottomWidth={"1px"} >
+                                                {(person?.ticketTypeCount?.length > 0 && person?.role !== "ADMIN" && person?.role !== "COLLABORATOR") && (
+                                                    <>
+                                                        {person?.ticketTypeCount?.map((item: {
+                                                            "ticketType": string,
+                                                            "numberOfTickets": number
+                                                        }) => {
+                                                            return (
+                                                                <Flex height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} >
+                                                                    {item?.ticketType}
+                                                                </Flex>
+                                                            )
+                                                        })}
+                                                    </>
+                                                )}
+                                                {(!person?.ticketType || person?.role === "ADMIN" || person?.role === "COLLABORATOR") && (
+                                                    <>
+                                                        {(person?.user?.userId === person?.event?.createdBy && showTicketType) && (
+                                                            <Flex height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} bg={"#DCF9CF66"} color={"brand.chasescrollBlue"} >
+                                                                Organizer
+                                                            </Flex>
+                                                        )}
+                                                        {(person?.role === "ADMIN" && person?.user?.userId !== person?.event?.createdBy && showTicketType) && (
+                                                            <Flex height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} bg={"#DCF9CF66"} color={"#3EC30F"} >
+                                                                Admin
+                                                            </Flex>
+                                                        )}
+                                                        {(person?.role === "COLLABORATOR" && showTicketType) && (
+                                                            <Flex height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} bg={"#FDF3CF6B"} color={"#FDB806"} >
+                                                                Volunteer
+                                                            </Flex>
+                                                        )}
+                                                    </>
+                                                )}
 
-                                                </Td>
-                                            )}
+                                            </Td>
                                             <Td borderRightWidth={"1px"} borderBottomWidth={"1px"} textAlign={"center"} fontSize={"xs"} >
-                                                {(person?.ticketNumber !== 0 && showNumberOfTicket) ? person?.ticketNumber : ""}
+                                                {person?.ticketTypeCount?.map((item: {
+                                                    "ticketType": string,
+                                                    "numberOfTickets": number
+                                                }) => {
+                                                    return (
+                                                        <Flex height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} >
+                                                            x{item?.numberOfTickets}
+                                                        </Flex>
+                                                    )
+                                                })}
+                                                {/* {(person?.ticketNumber !== 0 && showNumberOfTicket) ? person?.ticketNumber : ""} */}
                                             </Td>
                                             <Td borderBottomWidth={"1px"} borderRightWidth={showBtn ? "1px" : "0px"} >
                                                 {showStatus &&
@@ -707,12 +726,12 @@ function DashboardRefund(props: Props) {
 
             <ModalLayout open={open} close={setOpen}>
                 <Flex py={"8"} px={"6"} flexDirection={"column"} gap={"4"} width={"full"} justifyContent={"center"} alignItems={"center"} >
-                    <CustomButton fontSize={"lg"} width={"full"} backgroundColor={"transparent"} color={"#FF6F61"} onClick={()=> reactToPrintFn()} text='PDF' />
+                    <CustomButton fontSize={"lg"} width={"full"} backgroundColor={"transparent"} color={"#FF6F61"} onClick={() => reactToPrintFn()} text='PDF' />
                     <Flex width={"full"} height={"1px"} bgColor={"#DDE6EB"} />
                     <CSVLink style={{ width: "100%" }} data={filteredData[0]?.name ? filteredData : newData[0]?.name ? newData : []}
                         filename={data?.data?.content[0]?.event?.eventName?.slice(0, 1)?.toUpperCase() + data?.data?.content[0]?.event?.eventName?.slice(1, data?.data?.content[0]?.event?.eventName?.length) + ".csv"} >
                         <CustomButton onClick={downloadCSV} fontSize={"lg"} width={"full"} backgroundColor={"transparent"} color={"#5D70F9"} text='CSV' />
-                    </CSVLink> 
+                    </CSVLink>
                 </Flex>
             </ModalLayout>
         </Flex >
