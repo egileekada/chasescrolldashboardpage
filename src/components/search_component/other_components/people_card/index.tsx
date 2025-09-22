@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import useCustomTheme from "@/hooks/useTheme";
+import { useDetails } from '@/global-state/useUserDetails'
 
 interface Props {
     person: any,
@@ -20,7 +21,8 @@ interface Props {
     refund?: boolean,
     block?: boolean,
     community?: boolean,
-    role?: string
+    role?: string,
+    userId?: string
 }
 
 function PeopleCard(props: Props) {
@@ -34,7 +36,8 @@ function PeopleCard(props: Props) {
         refund,
         block,
         community,
-        role
+        role,
+        userId
     } = props
 
     const [isFriend, setisFriend] = React.useState(person?.joinStatus)
@@ -43,8 +46,7 @@ function PeopleCard(props: Props) {
     const router = useRouter()
     const toast = useToast()
     // const [loading, setLoading] = React.useState("")
-    const queryClient = useQueryClient()   ;
-
+    const queryClient = useQueryClient()
 
     const { bodyTextColor, primaryColor,secondaryBackgroundColor, mainBackgroundColor, borderColor } = useCustomTheme();
     const { colorMode, toggleColorMode } = useColorMode();
@@ -102,7 +104,7 @@ function PeopleCard(props: Props) {
             {(!refund && !block && !community)&& (
                 <> 
                     {isFriend !== "SELF" && (
-                        <AddOrRemoveUserBtn index={index} connects={connects} request={request} profile={profile} search={search} width={request ? "85px" : search ? "85px" : '120px'} name={isFriend === "FRIEND_REQUEST_SENT" ? "Pending" : isFriend === "CONNECTED" ? "Disconnect" : "Connect"} setJoinStatus={setisFriend} user_index={person?.userId} />
+                        <AddOrRemoveUserBtn profileId={userId} index={index} connects={connects} request={request} profile={profile} search={search} width={request ? "85px" : search ? "85px" : '120px'} name={isFriend === "FRIEND_REQUEST_SENT" ? "Pending" : isFriend === "CONNECTED" ? "Disconnect" : "Connect"} setJoinStatus={setisFriend} user_index={person?.userId} />
                     )}
                 </>
             )}

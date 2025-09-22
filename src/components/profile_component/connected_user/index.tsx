@@ -28,13 +28,13 @@ function ConnectedUser(props: Props) {
                     if (results.length === i + 1) {
                         return (
                             <Box key={person?.userId} width={"full"} ref={ref} >
-                                <PeopleCard connects={true} person={person} />
+                                <PeopleCard connects={true} userId={user_index} person={person} />
                             </Box>
                         )
                     } else {
                         return (
                             <Box key={person?.userId} width={"full"}>
-                                <PeopleCard connects={true} person={person} />
+                                <PeopleCard connects={true} userId={user_index} person={person} />
                             </Box>
                         )
                     }

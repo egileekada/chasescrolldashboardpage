@@ -1,11 +1,12 @@
 import { AddProfileIcon } from '@/components/svg'
 import { URLS } from '@/services/urls'
 import httpService from '@/utils/httpService'
-import {Button, Flex, Spinner, useColorMode, useToast} from '@chakra-ui/react'
+import { Button, Flex, Spinner, useColorMode, useToast } from '@chakra-ui/react'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import useCustomTheme from "@/hooks/useTheme";
+import { useDetails } from '@/global-state/useUserDetails'
 
 interface Props {
     name: string,
@@ -17,7 +18,8 @@ interface Props {
     icon?: boolean,
     profile?: boolean,
     request?: boolean,
-    connects?: boolean
+    connects?: boolean,
+    profileId?: string
 }
 
 function AddOrRemoveUserBtn(props: Props) {
@@ -31,15 +33,18 @@ function AddOrRemoveUserBtn(props: Props) {
         icon,
         profile,
         request,
-        connects
+        connects,
+        profileId
     } = props
 
-    const [loading, setLoading] = useState("0") 
+    const [loading, setLoading] = useState("0")
     const [loadingRejected, setLoadingRejected] = useState("0")
-    const toast = useToast()    
+    const toast = useToast()
     const queryClient = useQueryClient();
 
-    const { bodyTextColor, primaryColor,secondaryBackgroundColor, mainBackgroundColor, borderColor } = useCustomTheme();
+    const { user } = useDetails((state) => state);
+
+    const { bodyTextColor, primaryColor, secondaryBackgroundColor, mainBackgroundColor, borderColor } = useCustomTheme();
     const { colorMode, toggleColorMode } = useColorMode();
 
     const unfriend = useMutation({
@@ -65,15 +70,15 @@ function AddOrRemoveUserBtn(props: Props) {
             });
             setLoading("0")
             setJoinStatus("pending")
-            queryClient.invalidateQueries([URLS.GET_USER_CONNECTION_LIST + user_index])  
-			queryClient.invalidateQueries(['/user/friend-requests'])
-			queryClient.invalidateQueries(['get-joined-network'])
+            queryClient.invalidateQueries([URLS.GET_USER_CONNECTION_LIST + user_index])
+            queryClient.invalidateQueries(['/user/friend-requests'])
+            queryClient.invalidateQueries(['get-joined-network'])
         }
-    }); 
+    });
 
 
     const rejectuser = useMutation({
-        mutationFn: () => httpService.delete(URLS.REJECT_USER +"/"+ index, {}),
+        mutationFn: () => httpService.delete(URLS.REJECT_USER + "/" + index, {}),
         onError: (error: AxiosError<any, any>) => {
             toast({
                 title: 'Error',
@@ -96,7 +101,7 @@ function AddOrRemoveUserBtn(props: Props) {
             });
             setLoading("0")
             setJoinStatus("pending")
-			queryClient.invalidateQueries([URLS.FRIEND_REQUEST]) 
+            queryClient.invalidateQueries([URLS.FRIEND_REQUEST])
         }
     });
 
@@ -113,9 +118,9 @@ function AddOrRemoveUserBtn(props: Props) {
                 position: 'top-right',
             });
         },
-        onSuccess: (data: AxiosResponse<any>) => { 
+        onSuccess: (data: AxiosResponse<any>) => {
 
-			queryClient.invalidateQueries([URLS.FRIEND_REQUEST]) 
+            queryClient.invalidateQueries([URLS.FRIEND_REQUEST])
             toast({
                 title: 'Success',
                 description: data.data?.message,
@@ -150,9 +155,9 @@ function AddOrRemoveUserBtn(props: Props) {
                 duration: 5000,
                 position: 'top-right',
             });
-            queryClient.invalidateQueries([URLS.GET_USER_CONNECTION_LIST + user_index])  
-			queryClient.invalidateQueries(['/user/friend-requests'])
-			queryClient.invalidateQueries(['get-joined-network'])
+            queryClient.invalidateQueries([URLS.GET_USER_CONNECTION_LIST + user_index])
+            queryClient.invalidateQueries(['/user/friend-requests'])
+            queryClient.invalidateQueries(['get-joined-network'])
             setLoading("0")
             if (data?.data?.message === "Public profile auto friend") {
                 setJoinStatus("CONNECTED")
@@ -163,7 +168,7 @@ function AddOrRemoveUserBtn(props: Props) {
     });
 
     const handleadd = React.useCallback(() => {
- 
+
         setLoading(user_index)
         addfriend.mutate({ toUserID: user_index })
     }, [addfriend, user_index])
@@ -193,26 +198,35 @@ function AddOrRemoveUserBtn(props: Props) {
         } else {
             handleadd()
         }
-    } 
-    
+    }
+
 
     return (
         <>
-            {!request && (
+            {(!request) && (
                 <>
                     {!icon && (
-                        <Flex disabled={loading === user_index ? true : false} px={profile ? "4" : "0px"} _disabled={{cursor: "none"}} justifyContent={"center"} alignItems={"center"} as={"button"} onClick={clickHandler} _hover={{ backgroundColor: "#5D70F9", color: "white" }} width={width ? width : "full"} rounded={"8px"} height={search ? "35px" : "43px"} bg={name === "Pending" ? "#fff3e7" : name === "Disconnect" ? "brand.chasescrollRed" : "white"} borderColor={(name === "Pending" || name === "Disconnect") ? "" : "brand.chasescrollBlue"} borderWidth={(name === "Pending" || name === "Disconnect") ? "0px" : "1px"} color={name === "Pending" ? "#f78b26" : name === "Disconnect" ? "white" : "brand.chasescrollBlue"} fontSize={search ? "11px" : "sm"} fontWeight={"semibold"}  >
-                            {(loading === user_index) ? "Loading..." : name}
-                        </Flex>
+                        <>
+                            {(profile === user?.userId && name === "Disconnect") && (
+                                <Flex disabled={loading === user_index ? true : false} px={profile ? "4" : "0px"} _disabled={{ cursor: "none" }} justifyContent={"center"} alignItems={"center"} as={"button"} onClick={clickHandler} _hover={{ backgroundColor: "#5D70F9", color: "white" }} width={width ? width : "full"} rounded={"8px"} height={search ? "35px" : "43px"} bg={name === "Disconnect" ? "brand.chasescrollRed" : "white"} borderColor={(name === "Disconnect") ? "" : "brand.chasescrollBlue"} borderWidth={(name === "Disconnect") ? "0px" : "1px"} color={name === "Disconnect" ? "white" : "brand.chasescrollBlue"} fontSize={search ? "11px" : "sm"} fontWeight={"semibold"}  >
+                                    {(loading === user_index) ? "Loading..." : name}
+                                </Flex>
+                            )}
+                            {(name !== "Disconnect") && (
+                                <Flex disabled={loading === user_index ? true : false} px={profile ? "4" : "0px"} _disabled={{ cursor: "none" }} justifyContent={"center"} alignItems={"center"} as={"button"} onClick={clickHandler} _hover={{ backgroundColor: "#5D70F9", color: "white" }} width={width ? width : "full"} rounded={"8px"} height={search ? "35px" : "43px"} bg={name === "Pending" ? "#fff3e7" : name === "Disconnect" ? "brand.chasescrollRed" : "white"} borderColor={(name === "Pending" || name === "Disconnect") ? "" : "brand.chasescrollBlue"} borderWidth={(name === "Pending" || name === "Disconnect") ? "0px" : "1px"} color={name === "Pending" ? "#f78b26" : name === "Disconnect" ? "white" : "brand.chasescrollBlue"} fontSize={search ? "11px" : "sm"} fontWeight={"semibold"}  >
+                                    {(loading === user_index) ? "Loading..." : name}
+                                </Flex>
+                            )}
+                        </>
                     )}
                     {(icon && name !== "Connect") ? (
-                        <Flex disabled={loading === user_index ? true : false} _disabled={{cursor: "none"}} as={"button"} justifyContent={"center"} px={["1", "1", "3"]} alignItems={"center"} _hover={{ backgroundColor: mainBackgroundColor }} width={width ? width : "full"} rounded={"8px"} height={search ? "35px" : ["35px", "35px",  "43px"]} bg={name === "Pending" ? mainBackgroundColor : name === "Disconnect" ? mainBackgroundColor : mainBackgroundColor} borderColor={(name === "Pending" || name === "Disconnect") ? "" : "white"} borderWidth={(name === "Pending" || name === "Disconnect") ? "0px" : "0px"} color={name === "Pending" ? "#f78b26" : name === "Disconnect" ? "brand.chasescrollBlue" : "brand.chasescrollBlue"} fontSize={search ? "11px" :["xs", "xs",  "sm"]} fontWeight={["medium", "medium", "semibold"]}  >
+                        <Flex disabled={loading === user_index ? true : false} _disabled={{ cursor: "none" }} as={"button"} justifyContent={"center"} px={["1", "1", "3"]} alignItems={"center"} _hover={{ backgroundColor: mainBackgroundColor }} width={width ? width : "full"} rounded={"8px"} height={search ? "35px" : ["35px", "35px", "43px"]} bg={name === "Pending" ? mainBackgroundColor : name === "Disconnect" ? mainBackgroundColor : mainBackgroundColor} borderColor={(name === "Pending" || name === "Disconnect") ? "" : "white"} borderWidth={(name === "Pending" || name === "Disconnect") ? "0px" : "0px"} color={name === "Pending" ? "#f78b26" : name === "Disconnect" ? "brand.chasescrollBlue" : "brand.chasescrollBlue"} fontSize={search ? "11px" : ["xs", "xs", "sm"]} fontWeight={["medium", "medium", "semibold"]}  >
                             {(loading === user_index) ? "Loading..." : name === "Disconnect" ? "Connected" : name}
                         </Flex>
                     ) : (
                         <>
                             {icon && (
-                                <Flex disabled={loading === user_index ? true : false} as={"button"} _disabled={{cursor: "none"}} onClick={clickHandler}>
+                                <Flex disabled={loading === user_index ? true : false} as={"button"} _disabled={{ cursor: "none" }} onClick={clickHandler}>
                                     {(loading === user_index) ? (
                                         <Spinner size={"sm"} />
                                     ) :

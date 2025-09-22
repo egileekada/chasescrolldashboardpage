@@ -22,7 +22,7 @@ export default function EventCardNew({
 
     const router = useRouter()
 
-    const { primaryColor, headerTextColor, mainBackgroundColor } = useCustomTheme()
+    const { primaryColor, borderColor, mainBackgroundColor } = useCustomTheme()
     const newtheme = localStorage.getItem("chakra-ui-color-mode") as string
 
 
@@ -43,7 +43,7 @@ export default function EventCardNew({
 
 
     return (
-        <Flex as={"button"} flexDir={"column"} bgColor={cardColor ? cardColor?.replace("hex", "#") : mainBackgroundColor} onClick={() => clickHandler()} borderWidth={"1px"} rounded={"10px"} w={"full"} >
+        <Flex as={"button"} flexDir={"column"} bgColor={cardColor ? cardColor?.replace("hex", "#") : mainBackgroundColor} onClick={() => clickHandler()} borderWidth={"1px"} borderColor={borderColor} rounded={"10px"} w={"full"} >
             <Flex w={"full"} pos={"relative"} >
                 <ProductImageScroller images={[event?.currentPicUrl]} createdDate={moment(event?.createdDate)?.fromNow()} userData={event?.createdBy} />
                 <Flex w={"40px"} pos={"absolute"} display={["none", "none", "flex"]} bottom={"4"} right={"4"} h={"40px"} rounded={"full"} bgColor={mainBackgroundColor} justifyContent={"center"} alignItems={"center"} >
