@@ -130,7 +130,9 @@ export default function KisokPage() {
             discountPrice: null,
             publish: true,
             location: "" as any,
-            state: ""
+            state: "",
+            color: [],
+            size: []
         })
         updateRental({
             "userId": userId,

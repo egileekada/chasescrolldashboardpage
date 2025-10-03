@@ -4,7 +4,7 @@ import { useDetails } from '@/global-state/useUserDetails';
 import useCustomTheme from '@/hooks/useTheme';
 import { URLS } from '@/services/urls';
 import httpService from '@/utils/httpService';
-import { HStack, Image, Radio, Spinner, useColorMode, VStack } from '@chakra-ui/react'
+import { HStack, Image, Radio, Spinner, Text, useColorMode, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { FiChevronLeft } from 'react-icons/fi'
@@ -50,7 +50,7 @@ function Visibility() {
 
                 <HStack width={'100%'} alignItems={'center'} marginTop={'120px'}>
                     <FiChevronLeft role="button" size={'25px'} color={bodyTextColor} onClick={() => router.back()} />
-                    <CustomText fontFamily={'DM-Regular'} fontSize={'18px'}>Account settings</CustomText>
+                    <Text fontSize={'18px'}>Account settings</Text>
                 </HStack>
 
                 <VStack width='100%' height={'auto'} marginTop={'20px'}>
@@ -58,7 +58,7 @@ function Visibility() {
                     <HStack width='100%' height='40px' paddingX={'20px'} borderRadius={'10px'} bg={secondaryBackgroundColor} justifyContent={'space-between'} marginBottom={'15px'}>
                         <HStack alignItems={'center'}>
                             <Image alt='peoople' src='/assets/images/people.svg' />
-                            <CustomText fontFamily={'DM-Regular'} fontSize={'18px'}>Public</CustomText>
+                            <Text fontSize={'18px'}>Public</Text>
                         </HStack>
 
                         {updating ? <Spinner /> : <Radio name='visibility' isChecked={isPrivate === false} onChange={() => mutate({ publicProfile: true })} />}
@@ -67,7 +67,7 @@ function Visibility() {
                     <HStack width='100%' height='40px' paddingX={'20px'} borderRadius={'10px'} bg={secondaryBackgroundColor} justifyContent={'space-between'} marginBottom={'15px'}>
                         <HStack alignItems={'center'}>
                             <Image alt='peoople' src='/assets/images/Vector.svg' />
-                            <CustomText fontFamily={'DM-Regular'} fontSize={'18px'}>Private</CustomText>
+                            <Text fontSize={'18px'}>Private</Text>
                         </HStack>
 
                         {updating ? <Spinner /> : <Radio name='visibility' isChecked={isPrivate === true} onChange={() => mutate({ publicProfile: false })} />}

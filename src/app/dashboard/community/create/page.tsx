@@ -11,11 +11,11 @@ import {
     Switch,
     Image,
     Button,
-    useColorMode
+    useColorMode,
+    Text
 } from '@chakra-ui/react';
 import React, { useRef } from 'react'
-import { FiFolderPlus, FiX } from 'react-icons/fi';
-import CustomText from '@/components/general/Text';
+import { FiFolderPlus, FiX } from 'react-icons/fi'; 
 import { useForm } from '@/hooks/useForm';
 import { communitySchema } from '@/services/validations';
 import { CustomInput } from '@/components/Form/CustomInput';
@@ -38,7 +38,7 @@ function CreateCommunity() {
     const { userId, email, } = useDetails((state) => state);
     const queryClient = useQueryClient();
     let fileReader = React.useRef<FileReader | null>(null);
-    const inputRef = useRef<HTMLInputElement>();
+    const inputRef = useRef<HTMLInputElement>(null);
     const toast = useToast();
     const router = useRouter();
 
@@ -198,7 +198,7 @@ function CreateCommunity() {
                         <VStack width='100%' height='100%' justifyContent={'center'} alignItems={'center'}>
                             {/* <Image src='/assets/svg/folder-cloud.svg' alt='icon' width={50} height={50} /> */}
                             <BiCloudUpload size={"45px"} />
-                            <CustomText fontFamily={'Satoshi-Regular'} color='black' fontSize={'md'}>Upload image here</CustomText>
+                            <Text color='black' fontSize={'md'}>Upload image here</Text>
                         </VStack>
                     )}
                     {
@@ -214,14 +214,14 @@ function CreateCommunity() {
                 </VStack>
 
                 <VStack width='100%' alignItems={'center'} marginBottom={'20px'} >
-                    <CustomText fontFamily={'Satoshi-Regular'} fontSize='20px'>Visibiltiy</CustomText>
+                    <Text fontSize='20px'>Visibiltiy</Text>
                     <HStack spacing={6} alignItems={'center'} marginTop={'10px'}>
-                        <CustomText>Private</CustomText>
+                        <Text>Private</Text>
                         <Switch isChecked={isPublic === false} onChange={() => setIsPublic(prev => !prev)} />
                     </HStack>
 
                     <HStack spacing={6} alignItems={'center'} marginTop={'10px'}>
-                        <CustomText>Public</CustomText>
+                        <Text>Public</Text>
                         <Switch isChecked={isPublic} onChange={() => setIsPublic(prev => !prev)} />
                     </HStack>
                 </VStack>

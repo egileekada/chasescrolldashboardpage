@@ -301,8 +301,8 @@ export default function PostCard(props: IMediaContent) {
             <ModalLayout open={deleteModal} close={setDeleteModal} size={"xs"} >
                 <Flex width='100%' bg={mainBackgroundColor} justifyContent={'center'} height='100%' alignItems={'center'} gap={"3"} p={"5"} flexDir={"column"} >
                     <Image alt='delete' src='/assets/images/deleteaccount.svg' />
-                    <CustomText fontFamily='DM-Bold' textAlign={'center'} fontSize={'20px'}>Delete Post</CustomText>
-                    <CustomText fontFamily={'DM-Regular'} textAlign={'center'} fontSize={'16px'} >Are you sure you want to delete this Post? this action cannot be undone.</CustomText>
+                    <CustomText textAlign={'center'} fontSize={'20px'}>Delete Post</CustomText>
+                    <CustomText textAlign={'center'} fontSize={'16px'} >Are you sure you want to delete this Post? this action cannot be undone.</CustomText>
 
                     <Button isDisabled={deletingPost} isLoading={deletingPost} onClick={() => deletePost(id)} width='100%' height='42px' bg='red' color="white" variant='solid'>Delete</Button>
                     <Button onClick={() => setDeleteModal(false)} width='100%' height='42px' borderWidth={'0px'} variant='outline' outlineColor={borderColor}>Cancel</Button>

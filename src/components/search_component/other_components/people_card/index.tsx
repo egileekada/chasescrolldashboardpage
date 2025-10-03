@@ -91,7 +91,7 @@ function PeopleCard(props: Props) {
     } 
 
     return (
-        <Flex as={"button"} onClick={() => submit()} _hover={{ backgroundColor: community ? "transparent" : mainBackgroundColor }} px={"2"} width={"full"} justifyContent={"space-between"} alignItems={"center"} py={"4"} borderBottomWidth={"1px"} >
+        <Flex as={"button"} onClick={() => submit()} _hover={{ backgroundColor: community ? "transparent" : mainBackgroundColor }} px={"2"} width={"full"} justifyContent={"space-between"} alignItems={"center"} py={"4"} borderBottomWidth={"1px"} borderColor={borderColor} >
             <Flex width={["60vw", "fit-content"]} gap={"2"} alignItems={"center"} >
                 <Box> 
                     <UserImage fontWeight={"semibold"} border={search ? "1px" : "3px"} data={person} image={person?.data?.imgMain?.value} size={search ? "32px" : 50} font={search ? "[16px]" : '[30px]'} />

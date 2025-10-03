@@ -207,7 +207,7 @@ function AddOrRemoveUserBtn(props: Props) {
                 <>
                     {!icon && (
                         <>
-                            {(profile === user?.userId && name === "Disconnect") && (
+                            {(profileId === user?.userId && name === "Disconnect") && (
                                 <Flex disabled={loading === user_index ? true : false} px={profile ? "4" : "0px"} _disabled={{ cursor: "none" }} justifyContent={"center"} alignItems={"center"} as={"button"} onClick={clickHandler} _hover={{ backgroundColor: "#5D70F9", color: "white" }} width={width ? width : "full"} rounded={"8px"} height={search ? "35px" : "43px"} bg={name === "Disconnect" ? "brand.chasescrollRed" : "white"} borderColor={(name === "Disconnect") ? "" : "brand.chasescrollBlue"} borderWidth={(name === "Disconnect") ? "0px" : "1px"} color={name === "Disconnect" ? "white" : "brand.chasescrollBlue"} fontSize={search ? "11px" : "sm"} fontWeight={"semibold"}  >
                                     {(loading === user_index) ? "Loading..." : name}
                                 </Flex>

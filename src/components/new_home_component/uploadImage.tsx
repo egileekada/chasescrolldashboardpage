@@ -21,7 +21,7 @@ export default function UploadImage({ handleImagePicked, files, fileIndex, setFi
     const [isLoading, setIsLoading] = React.useState(true);
 
     const [over, setOver] = React.useState(false);
-    const inputRef = React.useRef<HTMLInputElement>();
+    const inputRef = React.useRef<HTMLInputElement>(null);
     const [stage, setStage] = React.useState(1);
 
     const {
@@ -71,7 +71,7 @@ export default function UploadImage({ handleImagePicked, files, fileIndex, setFi
                         <Gallery size={25} color={bodyTextColor} />
                         <Video size={25} color={bodyTextColor} />
                     </HStack>
-                    <CustomText fontFamily={'Satoshi-Regular'} width='50%' textAlign={'center'} fontSize={'md'} color={bodyTextColor}>Click to add pictures and video here </CustomText>
+                    <CustomText width='50%' textAlign={'center'} fontSize={'md'} color={bodyTextColor}>Click to add pictures and video here </CustomText>
                 </Flex>
             ) : (
                 <Flex width={'100%'} height={'100%'} pos={"relative"} borderWidth={"1px"} justifyContent={"center"} alignItems={"center"} overflow={'hidden'} zIndex={2} rounded={"16px"} roundedTopRight={"0px"} >
