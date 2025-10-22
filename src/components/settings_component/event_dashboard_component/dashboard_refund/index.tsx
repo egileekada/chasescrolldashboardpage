@@ -48,8 +48,6 @@ import { useReactToPrint } from 'react-to-print'
 import { CSVLink } from 'react-csv'
 import { capitalizeFLetter } from '@/utils/capitalLetter'
 import { dateFormat, dateFormatDashboad, timeFormat } from '@/utils/dateFormat'
-import EventLocationDetail from '@/components/sharedComponent/event_location'
-import EventDate from '@/components/event_details_component/event_date'
 import { IoIosArrowDropright, IoMdArrowDropright, IoMdCloseCircle } from 'react-icons/io'
 import useCustomTheme from "@/hooks/useTheme";
 import { textLimit } from '@/utils/textlimit'
@@ -76,12 +74,14 @@ import { IEventAnalysis } from '@/models/IEventAnalysis'
 import DescriptionPage from '@/components/sharedComponent/descriptionPage'
 
 interface Props {
-    index: any
+    index: any,
+    pr?: boolean
 }
 
 function DashboardRefund(props: Props) {
     const {
-        index
+        index,
+        pr
     } = props
 
     const {
@@ -251,7 +251,8 @@ function DashboardRefund(props: Props) {
 
             setNewData(datacsv)
 
-        }
+        },
+        enabled: userId === event?.createdBy?.userId
     });
 
     const addCommunityFunnel = useMutation({
@@ -522,7 +523,7 @@ function DashboardRefund(props: Props) {
                                     if (selectedTicketType === 'All') {
                                         return item;
                                     } else {
-                                        return item?.ticketTypeCount.some((subitem: any) => subitem?.ticketType ===  selectedTicketType)
+                                        return item?.ticketTypeCount.some((subitem: any) => subitem?.ticketType === selectedTicketType)
                                     }
                                 }).map((person: any, i: number) => {
                                     return (
@@ -537,9 +538,9 @@ function DashboardRefund(props: Props) {
                                                         {person?.ticketTypeCount?.map((item: {
                                                             "ticketType": string,
                                                             "numberOfTickets": number
-                                                        }) => {
+                                                        }, index: number) => {
                                                             return (
-                                                                <Flex height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} >
+                                                                <Flex key={index} height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} >
                                                                     {item?.ticketType}
                                                                 </Flex>
                                                             )
@@ -571,9 +572,9 @@ function DashboardRefund(props: Props) {
                                                 {person?.ticketTypeCount?.map((item: {
                                                     "ticketType": string,
                                                     "numberOfTickets": number
-                                                }) => {
+                                                }, index: number) => {
                                                     return (
-                                                        <Flex height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} >
+                                                        <Flex key={index} height={"23px"} px={"2"} justifyContent={"center"} alignItems={"center"} fontWeight={"bold"} fontSize={"xs"} rounded={"32px"} >
                                                             x{item?.numberOfTickets}
                                                         </Flex>
                                                     )
@@ -588,7 +589,7 @@ function DashboardRefund(props: Props) {
                                                             scanned: boolean
                                                         }, index: number) => {
                                                             return (
-                                                                <>
+                                                                <Box key={index} >
                                                                     {item?.scanTime?.length > 0 &&
                                                                         <Flex key={index} fontSize={"xs"} mt={index === 0 ? "0px" : "4"} flexDir={"column"} gap={"2"} >
                                                                             <Text fontWeight={"bold"} >Ticket {index + 1} (MM-DD-YY)</Text>
@@ -629,7 +630,7 @@ function DashboardRefund(props: Props) {
                                                                             </Flex>
                                                                         </Flex>
                                                                     }
-                                                                </>
+                                                                </Box>
                                                             )
                                                         })}
                                                     </>
@@ -728,10 +729,12 @@ function DashboardRefund(props: Props) {
                 <Flex py={"8"} px={"6"} flexDirection={"column"} gap={"4"} width={"full"} justifyContent={"center"} alignItems={"center"} >
                     <CustomButton fontSize={"lg"} width={"full"} backgroundColor={"transparent"} color={"#FF6F61"} onClick={() => reactToPrintFn()} text='PDF' />
                     <Flex width={"full"} height={"1px"} bgColor={"#DDE6EB"} />
-                    <CSVLink style={{ width: "100%" }} data={filteredData[0]?.name ? filteredData : newData[0]?.name ? newData : []}
-                        filename={data?.data?.content[0]?.event?.eventName?.slice(0, 1)?.toUpperCase() + data?.data?.content[0]?.event?.eventName?.slice(1, data?.data?.content[0]?.event?.eventName?.length) + ".csv"} >
-                        <CustomButton onClick={downloadCSV} fontSize={"lg"} width={"full"} backgroundColor={"transparent"} color={"#5D70F9"} text='CSV' />
-                    </CSVLink>
+                    {userId === event?.createdBy?.userId && (
+                        <CSVLink style={{ width: "100%" }} data={filteredData[0]?.name ? filteredData : newData[0]?.name ? newData : []}
+                            filename={data?.data?.content[0]?.event?.eventName?.slice(0, 1)?.toUpperCase() + data?.data?.content[0]?.event?.eventName?.slice(1, data?.data?.content[0]?.event?.eventName?.length) + ".csv"} >
+                            <CustomButton onClick={downloadCSV} fontSize={"lg"} width={"full"} backgroundColor={"transparent"} color={"#5D70F9"} text='CSV' />
+                        </CSVLink>
+                    )}
                 </Flex>
             </ModalLayout>
         </Flex >

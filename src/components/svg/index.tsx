@@ -260,7 +260,7 @@ export const TicketPurchase = () => (
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      stroke-dasharray="5 5"
+      strokeDasharray="5 5"
     />
   </svg>
 );
@@ -1575,7 +1575,7 @@ export const OtherPurchase = () => (
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      stroke-dasharray="5 5"
+      strokeDasharray="5 5"
     />
   </svg>
 );
@@ -1781,7 +1781,7 @@ export const MiniTicketIcon = ({ color }: { color?: string }) => (
     <rect x="0.707092" y="0.884766" width="28.0903" height="28.0903" rx="14.0452" fill="white" />
     <path d="M19.6049 16.8197C19.6049 17.7256 20.3493 18.4629 21.2552 18.4629C21.2552 21.0964 20.5951 21.7565 17.9616 21.7565H11.3744C8.74093 21.7565 8.08081 21.0964 8.08081 18.4629V18.1399C8.98672 18.1399 9.73112 17.3955 9.73112 16.4896C9.73112 15.5837 8.98672 14.8393 8.08081 14.8393V14.5162C8.08783 11.8828 8.74093 11.2227 11.3744 11.2227H17.9546C20.588 11.2227 21.2482 11.8828 21.2482 14.5162V15.1764C20.3422 15.1764 19.6049 15.9067 19.6049 16.8197Z" stroke="#12299C" strokeWidth="0.702259" strokeLinecap="round" strokeLinejoin="round" />
     <path d="M17.7095 11.2227H11.326L13.3836 9.16505C15.062 7.48665 15.9047 7.48665 17.5831 9.16505L18.0045 9.5864C17.562 10.0288 17.4567 10.6819 17.7095 11.2227Z" stroke="#12299C" strokeWidth="0.702259" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M13.2627 11.2227L13.2627 21.7565" stroke="#12299C" strokeWidth="0.702259" strokeLinecap="round" strokeLinejoin="round" stroke-dasharray="3.51 3.51" />
+    <path d="M13.2627 11.2227L13.2627 21.7565" stroke="#12299C" strokeWidth="0.702259" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="3.51 3.51" />
   </svg>
 );
 
@@ -1790,7 +1790,7 @@ export const MiniTicketIconActive = ({ color }: { color?: string }) => (
     <rect x="0.707092" y="0.884766" width="28.0903" height="28.0903" rx="14.0452" stroke="#394598" fill="white" />
     <path d="M19.6049 16.8197C19.6049 17.7256 20.3493 18.4629 21.2552 18.4629C21.2552 21.0964 20.5951 21.7565 17.9616 21.7565H11.3744C8.74093 21.7565 8.08081 21.0964 8.08081 18.4629V18.1399C8.98672 18.1399 9.73112 17.3955 9.73112 16.4896C9.73112 15.5837 8.98672 14.8393 8.08081 14.8393V14.5162C8.08783 11.8828 8.74093 11.2227 11.3744 11.2227H17.9546C20.588 11.2227 21.2482 11.8828 21.2482 14.5162V15.1764C20.3422 15.1764 19.6049 15.9067 19.6049 16.8197Z" stroke="#fff" strokeWidth="0.702259" strokeLinecap="round" strokeLinejoin="round" />
     <path d="M17.7095 11.2227H11.326L13.3836 9.16505C15.062 7.48665 15.9047 7.48665 17.5831 9.16505L18.0045 9.5864C17.562 10.0288 17.4567 10.6819 17.7095 11.2227Z" stroke="#fff" strokeWidth="0.702259" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M13.2627 11.2227L13.2627 21.7565" stroke="#fff" strokeWidth="0.702259" strokeLinecap="round" strokeLinejoin="round" stroke-dasharray="3.51 3.51" />
+    <path d="M13.2627 11.2227L13.2627 21.7565" stroke="#fff" strokeWidth="0.702259" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="3.51 3.51" />
   </svg>
 );
 
@@ -4677,7 +4677,7 @@ export const ViewTicket = () => (
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      stroke-dasharray="5 5"
+      strokeDasharray="5 5"
     />
   </svg>
 );
