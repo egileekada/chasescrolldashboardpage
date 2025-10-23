@@ -252,7 +252,7 @@ function DashboardRefund(props: Props) {
             setNewData(datacsv)
 
         },
-        enabled: userId === event?.createdBy?.userId
+        // enabled: userId === event?.createdBy?.userId
     });
 
     const addCommunityFunnel = useMutation({
@@ -729,12 +729,12 @@ function DashboardRefund(props: Props) {
                 <Flex py={"8"} px={"6"} flexDirection={"column"} gap={"4"} width={"full"} justifyContent={"center"} alignItems={"center"} >
                     <CustomButton fontSize={"lg"} width={"full"} backgroundColor={"transparent"} color={"#FF6F61"} onClick={() => reactToPrintFn()} text='PDF' />
                     <Flex width={"full"} height={"1px"} bgColor={"#DDE6EB"} />
-                    {userId === event?.createdBy?.userId && (
+                    {/* {userId === event?.createdBy?.userId && ( */}
                         <CSVLink style={{ width: "100%" }} data={filteredData[0]?.name ? filteredData : newData[0]?.name ? newData : []}
                             filename={data?.data?.content[0]?.event?.eventName?.slice(0, 1)?.toUpperCase() + data?.data?.content[0]?.event?.eventName?.slice(1, data?.data?.content[0]?.event?.eventName?.length) + ".csv"} >
                             <CustomButton onClick={downloadCSV} fontSize={"lg"} width={"full"} backgroundColor={"transparent"} color={"#5D70F9"} text='CSV' />
                         </CSVLink>
-                    )}
+                    {/* )} */}
                 </Flex>
             </ModalLayout>
         </Flex >
