@@ -17,6 +17,7 @@ import { ITicket } from '@/models/Ticket'
 import { PaginatedResponse } from '@/models/PaginatedResponse'
 import { IHistoryData, IHistoryDataTicket } from '@/models/HistoryData'
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5'
+import { useDetails } from '@/global-state/useUserDetails'
 // import { AreaChart, Area } from 'recharts';
 
 interface Props {
@@ -47,6 +48,7 @@ function DashboardDetail(props: Props) {
     const [activeTicketName, setActiveTicketName] = React.useState('All');
     const router = useRouter()
  
+    const { userId } = useDetails();
 
     React.useEffect(() => {
         if (activeTicketName === 'All') {
@@ -169,7 +171,7 @@ function DashboardDetail(props: Props) {
                             </Box>
                             <Box pt={"3px"} w={"120px"} px={"1"} borderRight={"1px"} borderColor={borderColor}  >
                                 <Text fontWeight={"normal"} fontSize={"xs"} textAlign={"center"} >{eventData?.donationEnabled ? "Donated(₦)" : "Revenue(₦)"}</Text>
-                                <Text fontWeight={"medium"} fontSize={["24px", "30px", "30px"]} textAlign={"center"} className=" font-medium text-center " >{"₦"}{eventData.donationEnabled ? formatNumberWithK(eventData?.totalDonated) : formatNumberWithK(history?.totalActiveSales)}</Text>
+                                <Text fontWeight={"medium"} fontSize={["24px", "30px", "30px"]} textAlign={"center"} className=" font-medium text-center " >{"₦"}{eventData.donationEnabled ? formatNumberWithK(eventData?.totalDonated) : formatNumberWithK(eventData?.createdBy?.userId === userId ? history?.totalActiveSales : history?.totalActiveSalesPR)}</Text>
                             </Box>
                             <Box pt={"3px"} px={"4"} borderColor={borderColor}  >
                                 <Text fontWeight={"normal"} fontSize={"xs"} textAlign={"center"} >Available</Text>
