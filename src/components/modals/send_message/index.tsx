@@ -1,4 +1,4 @@
-import { ShareType } from "@/app/share/page";
+
 import CopyButtton from "@/components/sharedComponent/copy_btn";
 import EventPrice from "@/components/sharedComponent/event_price";
 import useCustomTheme from "@/hooks/useTheme";
@@ -18,7 +18,7 @@ interface Props {
   id: any;
   click: any;
   isprofile?: boolean;
-  type?: ShareType;
+  type?: string;
   eventName?: string;
   data?: any;
 }
@@ -37,7 +37,7 @@ function SendMessage(props: Props) {
     ? `${SHARE_URL}${"/event?id="}${id}` :
       type === "RENTAL" ? `${SHARE_URL}${"/rental?id="}${id}`:
       type === "SERVICE" ? `${SHARE_URL}${"/service?id="}${id}`:
-      type === "KIOSK" ? `${SHARE_URL}${"/product?id="}${id}`:
+      type === "KIOSK" ? `${SHARE_URL}${"/product/"}${id}`:
       type === "DONATION" ? `${SHARE_URL}${"/fundraiser?id="}${id}`
       : `${SHARE_URL}/event?id=${id}`;
 
@@ -51,7 +51,7 @@ function SendMessage(props: Props) {
     } else if(type === "SERVICE"){
       return `${SHARE_URL}${"/service?id="}${id}`;
     } else if(type === "KIOSK"){
-      return `${SHARE_URL}${"/product?id="}${id}`;
+      return `${SHARE_URL}${"/product/"}${id}`;
     } else {
       return `${SHARE_URL}${"/event?id="}${id}`
     }  

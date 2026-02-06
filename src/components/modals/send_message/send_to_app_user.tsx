@@ -1,4 +1,4 @@
-import { ShareType } from '@/app/share/page';
+ 
 import CustomButton from '@/components/general/Button';
 import LoadingAnimation from '@/components/sharedComponent/loading_animation';
 import UserImage from '@/components/sharedComponent/userimage';
@@ -39,7 +39,7 @@ function SendMesageModal({ onClose, id, isprofile, type }: {
     onClose: () => void,
     id: string,
     isprofile?: boolean,
-    type: ShareType
+    type: string
 }) {
 
     const [search, setSearch] = React.useState('');
@@ -70,7 +70,7 @@ function SendMesageModal({ onClose, id, isprofile, type }: {
                   ? `${SHARE_URL}${"/event?id="}${id}` :
                     type === "RENTAL" ? `${SHARE_URL}${"/rental?id="}${id}`:
                     type === "SERVICE" ? `${SHARE_URL}${"/service?id="}${id}`:
-                    type === "KIOSK" ? `${SHARE_URL}${"/product?id="}${id}`:
+                    type === "KIOSK" ? `${SHARE_URL}${"/product/"}${id}`:
                     type === "DONATION" ? `${SHARE_URL}${"/fundraiser?id="}${id}`
                     : `${SHARE_URL}/event?id=${id}`,
                 chatID: chat?.id,
