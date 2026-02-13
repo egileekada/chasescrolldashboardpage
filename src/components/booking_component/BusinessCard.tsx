@@ -78,7 +78,7 @@ function BusinessCard({ business, mybusiness, isSelect, selected, setSelected }:
 
 
     return (
-        <Flex as={"button"} flexDir={"column"}  borderColor={borderColor} pos={"relative"} onClick={() => clickHandler()} borderWidth={"1px"} bgColor={mainBackgroundColor} rounded={"10px"} w={"full"} >
+        <Flex cursor={"pointer"} flexDir={"column"}  borderColor={borderColor} pos={"relative"} onClick={() => clickHandler()} borderWidth={"1px"} bgColor={mainBackgroundColor} rounded={"10px"} w={"full"} >
             {(!isSelect && (business?.vendor?.userId === userId)) && (
                 <DeleteEvent id={business?.id} isServices={true} name={business?.name + " Services"} isOrganizer={mybusiness ? true : false} />
             )}

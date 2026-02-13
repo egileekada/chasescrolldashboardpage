@@ -84,7 +84,7 @@ type Action = {
     updateAddress: (data: ILocation['location']) => void,
 }
 
-const userId = localStorage.getItem('user_id') as string;
+const userId = (localStorage as any ).getItem('user_id') as string;
 
 const useProductStore = create<State & Image & Navigate & Action & ILocation & ImagePreview>((set) => ({
     productdata: {

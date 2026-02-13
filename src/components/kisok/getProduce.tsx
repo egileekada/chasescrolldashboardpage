@@ -50,7 +50,7 @@ export default function GetProduct({ myproduct, name, category, state }: { mypro
         console.log(item);
 
         if (frame) {
-            window.location.href = `${SHARE_URL}/product?id=${item?.id}`;
+            window.location.href = `${SHARE_URL}/product/${item?.id}`;
         } else if (myproduct && item?.createdBy?.userId === userId) {
             updateProduct({
                 ...productdata,
