@@ -237,6 +237,7 @@ export default function PostCard(props: IMediaContent) {
                         </Flex>
                     )}
                 </Flex>
+                
                 {mediaRef && (
                     <>
                         {(type === "WITH_IMAGE" ||
