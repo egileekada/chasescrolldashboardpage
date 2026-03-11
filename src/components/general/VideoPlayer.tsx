@@ -109,7 +109,7 @@ function VideoPlayer({
         setIsPlaying(false);
         videoRef?.current?.pause();
       }}>
-        <source type='video/mp4' src={src.startsWith('https://') ? src : src.startsWith('http://') ? src : IMAGE_URL+src} />
+        <source type='video/mp4' src={src?.startsWith('https://') ? src : src?.startsWith('http://') ? src : IMAGE_URL+src} />
       </video>
       {
         showControl && (
