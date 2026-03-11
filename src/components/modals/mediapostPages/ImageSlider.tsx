@@ -26,8 +26,8 @@ const ImageViewer = ({ file, limited }: { file: string, limited?: boolean }) => 
                 </Box>
             ) : (
                 <Box width='100%' height={limited ? '400px' : '100%'} >
-                    {file.startsWith('https://') && <Image src={`${file}`} alt='image' w={"full"} h={"full"} rounded={"16px"} roundedTopRight={"0px"} objectFit={"contain"} />}
-                    {!file.startsWith('https://') && <Image src={`${IMAGE_URL}${file}`} alt='image' style={{ width: '100%', height: '100%' }} rounded={"16px"} roundedTopRight={"0px"} objectFit={"contain"} />}
+                    {file?.startsWith('https://') && <Image src={`${file}`} alt='image' w={"full"} h={"full"} rounded={"16px"} roundedTopRight={"0px"} objectFit={"contain"} />}
+                    {!file?.startsWith('https://') && <Image src={`${IMAGE_URL}${file}`} alt='image' style={{ width: '100%', height: '100%' }} rounded={"16px"} roundedTopRight={"0px"} objectFit={"contain"} />}
                 </Box>
             )
             }
