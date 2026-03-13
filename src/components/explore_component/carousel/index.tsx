@@ -6,7 +6,7 @@ import EventPrice from '@/components/sharedComponent/event_price';
 import InterestedUsers from '@/components/sharedComponent/interested_users';
 import SaveOrUnsaveBtn from '@/components/sharedComponent/save_unsave_event_btn';
 import ShareEvent from '@/components/sharedComponent/share_event';
-import { IMAGE_URL } from '@/services/urls';
+import { EVENTPAGE_URL, IMAGE_URL } from '@/services/urls';
 import httpService from '@/utils/httpService';
 import { textLimit } from '@/utils/textlimit';
 import { Box, Flex, Image, useToast, Text, useColorMode, Skeleton } from '@chakra-ui/react';
@@ -26,6 +26,7 @@ function ExploreCarousel(props: Props) {
     const toast = useToast()
     const [data, setData] = React.useState([] as any)
     const router = useRouter();
+    const newtheme = localStorage.getItem("chakra-ui-color-mode") as string
 
     const {
         bodyTextColor,
@@ -51,6 +52,15 @@ function ExploreCarousel(props: Props) {
         }
     })
 
+    const clickHandler = (id: string) => {
+        // if (token) { 
+            window.location.href = `${EVENTPAGE_URL}/product/details/events/${id}?theme=${newtheme}`;
+            // router.push("/dashboard/event/details/" + event?.id
+        // } else {
+        //     router.push("/event/" + event?.id);
+        // }
+    }
+
     return (
         <LoadingAnimation loading={isLoading} customLoader={
             <Skeleton w={"full"} roundedBottom={["32px", "32px", "32px", "32px", "32px"]} roundedTopLeft={"32px"} height={["411px", "411px", "449px", "449px", "449px"]} />
@@ -62,7 +72,7 @@ function ExploreCarousel(props: Props) {
                             data?.map((item: any, index: any) => {
                                 return (
                                     <>
-                                        <Box onClick={() => router.push("/dashboard/event/details/" + item?.id)} key={index} role='button' bg={secondaryBackgroundColor} rounded={"32px"} roundedTopRight={"0px"} width={"full"} height={["fit-content", "fit-content", "fit-content"]} p={"3"} >
+                                        <Box onClick={() => clickHandler(item?.id)} key={index} role='button' bg={secondaryBackgroundColor} rounded={"32px"} roundedTopRight={"0px"} width={"full"} height={["fit-content", "fit-content", "fit-content"]} p={"3"} >
                                             <Box position={"relative"} width={"full"} >
 
                                             <ProductImageScroller images={[item?.currentPicUrl]}rounded='16px' height={["256px", "256px", "350px"]} />
